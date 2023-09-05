@@ -56,14 +56,15 @@ function game(){
         else if(result == "computer")
             score[1]++;
     }
-    // console.log(`Score => ${score[0]} | ${score[1]}`);
     console.log("/------------------------------/");
     if(score[0] > score[1])
         console.log("Player Wins !!!");
     else if(score[0] < score[1])
-        console.log("Computer Wins !!!");
+        console.log("Computer Wins !!!");   
     else 
         console.log("It's a Tie !!!");
+    console.log(`Score => Player = ${score[0]} | Computer = ${score[1]}`);
+
 }
 
 game();
