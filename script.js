@@ -9,6 +9,12 @@ function getPlayerChoice() {
     return choice;
 }
 
+function outcomeText(outcome, choice1="", choice2=""){
+    if(outcome == "Tie")
+        return `It's a Tie.`;
+    return `You ${outcome}! ${choice1} beats ${choice2}.`;
+}
+
 function calcOutcome(playerChoice, computerChoice) {
     if(playerChoice == "rock" && computerChoice == "scissors")
         return outcomeText("Win", "Rock", "Scissors");
@@ -28,10 +34,16 @@ function calcOutcome(playerChoice, computerChoice) {
         return "Wrong Input!";
 }
 
-function outcomeText(outcome, choice1="", choice2=""){
-    if(outcome == "Tie")
-        return `It's a Tie.`;
-    return `You ${outcome}! ${choice1} beats ${choice2}.`;
+function showResult(outcome, playerScore, computerScore) {
+    // outcome can be Tie / Player / Computer
+    if(outcome == "Tie"){
+        console.log(`It's a Tie !!! \nScore => Player = ${playerScore} | Computer = ${computerScore}`);
+        alert( `It's a Tie !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
+    }
+    else {
+        console.log(`${outcome} Wins !!! \nScore => Player = ${playerScore} | Computer = ${computerScore}`);
+        alert( `${outcome} Wins !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
+    }
 }
 
 function playRound(){
@@ -39,6 +51,7 @@ function playRound(){
 
     let outcome = calcOutcome(playerChoice, computerChoice)
     console.log( outcome );
+    alert( outcome );
 
     if(outcome[4] == "W")
         return "player";
@@ -48,23 +61,21 @@ function playRound(){
 }
 
 function game(){
-    let score = [0, 0]; // player, computer
+    let playerScore = 0, computerScore = 0;
     for(let i=0; i<5; i++){
         let result = playRound();
         if(result == "player")
-            score[0]++;
+            playerScore++;
         else if(result == "computer")
-            score[1]++;
+            computerScore++;
     }
     console.log("/------------------------------/");
-    if(score[0] > score[1])
-        console.log("Player Wins !!!");
-    else if(score[0] < score[1])
-        console.log("Computer Wins !!!");   
-    else 
-        console.log("It's a Tie !!!");
-    console.log(`Score => Player = ${score[0]} | Computer = ${score[1]}`);
-
+    if(playerScore > computerScore)
+        showResult("Player", playerScore, computerScore);
+    else if(playerScore < computerScore)
+        showResult("Computer", playerScore, computerScore);
+    else
+        showResult("Tie", playerScore, computerScore);
 }
 
 game();
