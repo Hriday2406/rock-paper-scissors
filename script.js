@@ -3,12 +3,6 @@ function getComputerChoice() {
     return choice[ Math.floor(Math.random() * 3) ];
 }
 
-// function getPlayerChoice() {
-//     let choice = prompt("What do you choose? \nRock or Paper or Scissors");
-//     choice = choice.toLowerCase();
-//     return choice;
-// }
-
 function calcOutcomeText(outcome, choice1="", choice2=""){
     if(outcome == "Tie")
         return `It's a Tie.`;
@@ -34,79 +28,61 @@ function calcOutcome(playerChoice, computerChoice) {
         return "Wrong Input!";
 }
 
-function showResult(outcome, playerScore, computerScore) {
-    // outcome can be Tie / Player / Computer
-    if(outcome == "Tie"){
-        console.log(`It's a Tie !!! \nScore => Player = ${playerScore} | Computer = ${computerScore}`);
-        // alert( `It's a Tie !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
-    }
-    else {
-        console.log(`${outcome} Wins !!! \nScore => Player = ${playerScore} | Computer = ${computerScore}`);
-        // alert( `${outcome} Wins !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
-    }
-}
-
 function playRound(playerChoice, computerChoice = getComputerChoice()){
     let outcome = calcOutcome(playerChoice, computerChoice);
-    outcomeText = outcome;
-    console.log( outcome );
-    // alert( outcome );
+
+    outcomeDiv.textContent = outcome;
+    container.appendChild(outcomeDiv);
 
     if(outcome[4] == "W")
-        return "player";
-    if(outcome[4] == "L")
-        return "computer";
-    return "tie";
+        playerScore++;
+    else if(outcome[4] == "L")
+        computerScore++;
+
+    if(playerScore == 5)
+        winner("player");
+    else if(computerScore == 5)
+        winner("computer");
 }
 
-function game(){
-    let playerScore = 0, computerScore = 0;
-        let result = playRound();
-        if(result == "player")
-            playerScore++;
-        else if(result == "computer")
-            computerScore++;
-    console.log("/------------------------------/");
-    if(playerScore > computerScore)
-        showResult("Player", playerScore, computerScore);
-    else if(playerScore < computerScore)
-        showResult("Computer", playerScore, computerScore);
-    else
-        showResult("Tie", playerScore, computerScore);
+function winner(string){
+    btnR.disabled = true;
+    btnP.disabled = true;
+    btnS.disabled = true;
+    container.removeChild(outcomeDiv);
+    const para1 = document.createElement('p');
+    const para2 = document.createElement('p');
+    if(string == "player")
+        para1.textContent = "You Won !!";
+    else if(string == "computer")
+        para1.textContent = "You Lost !!";
+    para2.textContent = `Player = ${playerScore} | Computer = ${computerScore}`
+    resultDiv.appendChild(para1);
+    resultDiv.appendChild(para2);
+    container.appendChild(resultDiv);
 }
 
+/* --------------------------------------------------------------- */
+
+let playerScore = 0, computerScore = 0;
 const btnR = document.querySelector('#btnR');
 const btnP = document.querySelector('#btnP');
 const btnS = document.querySelector('#btnS');
 
-btnR.addEventListener('click', () => {
-    playRound('rock');
-    outcomeDiv.textContent = outcomeText;
-    container.appendChild(outcomeDiv);
-});
+btnR.addEventListener('click', () => playRound('rock'));
+btnP.addEventListener('click', () => playRound('paper'));
+btnS.addEventListener('click', () => playRound('scissors'));
 
-btnP.addEventListener('click', () => {
-    playRound('paper');
-    outcomeDiv.textContent = outcomeText;
-    container.appendChild(outcomeDiv);
-});
-
-btnS.addEventListener('click', () => {
-    playRound('scissors');
-    outcomeDiv.textContent = outcomeText;
-    container.appendChild(outcomeDiv);
-});
-
-let outcomeText = '';
 const container = document.querySelector('.container');
 const outcomeDiv = document.createElement('div');
-outcomeDiv.classList.add('outcomeDiv');
+outcomeDiv.classList.toggle('box');
+
+const resultDiv = document.createElement('div');
+resultDiv.classList.toggle('box');
 
 
 
-
-
-// game();
+// playRound();
 
 /*
 R > S
