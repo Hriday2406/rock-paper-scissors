@@ -9,7 +9,7 @@ function getComputerChoice() {
 //     return choice;
 // }
 
-function outcomeText(outcome, choice1="", choice2=""){
+function calcOutcomeText(outcome, choice1="", choice2=""){
     if(outcome == "Tie")
         return `It's a Tie.`;
     return `You ${outcome}! ${choice1} beats ${choice2}.`;
@@ -17,19 +17,19 @@ function outcomeText(outcome, choice1="", choice2=""){
 
 function calcOutcome(playerChoice, computerChoice) {
     if(playerChoice == "rock" && computerChoice == "scissors")
-        return outcomeText("Win", "Rock", "Scissors");
+        return calcOutcomeText("Win", "Rock", "Scissors");
     else if(playerChoice == "paper" && computerChoice == "rock")
-        return outcomeText("Win", "Paper", "Rock");
+        return calcOutcomeText("Win", "Paper", "Rock");
     else if(playerChoice == "scissors" && computerChoice == "paper")
-        return outcomeText("Win", "Scissors", "Paper");
+        return calcOutcomeText("Win", "Scissors", "Paper");
     else if(playerChoice == "scissors" && computerChoice == "rock")
-        return outcomeText("Lose", "Rock", "Scissors");
+        return calcOutcomeText("Lose", "Rock", "Scissors");
     else if(playerChoice == "rock" && computerChoice == "paper")
-        return outcomeText("Lose", "Paper", "Rock");
+        return calcOutcomeText("Lose", "Paper", "Rock");
     else if(playerChoice == "paper" && computerChoice == "scissors")
-        return outcomeText("Lose", "Scissors", "Paper");
+        return calcOutcomeText("Lose", "Scissors", "Paper");
     else if(playerChoice == computerChoice)
-        return outcomeText("Tie");
+        return calcOutcomeText("Tie");
     else
         return "Wrong Input!";
 }
@@ -47,7 +47,8 @@ function showResult(outcome, playerScore, computerScore) {
 }
 
 function playRound(playerChoice, computerChoice = getComputerChoice()){
-    let outcome = calcOutcome(playerChoice, computerChoice)
+    let outcome = calcOutcome(playerChoice, computerChoice);
+    outcomeText = outcome;
     console.log( outcome );
     // alert( outcome );
 
@@ -60,13 +61,11 @@ function playRound(playerChoice, computerChoice = getComputerChoice()){
 
 function game(){
     let playerScore = 0, computerScore = 0;
-    // for(let i=0; i<5; i++){
         let result = playRound();
         if(result == "player")
             playerScore++;
         else if(result == "computer")
             computerScore++;
-    // }
     console.log("/------------------------------/");
     if(playerScore > computerScore)
         showResult("Player", playerScore, computerScore);
@@ -80,9 +79,30 @@ const btnR = document.querySelector('#btnR');
 const btnP = document.querySelector('#btnP');
 const btnS = document.querySelector('#btnS');
 
-btnR.addEventListener('click', () => playRound('rock'));
-btnP.addEventListener('click', () => playRound('paper'));
-btnS.addEventListener('click', () => playRound('scissors'));
+btnR.addEventListener('click', () => {
+    playRound('rock');
+    outcomeDiv.textContent = outcomeText;
+    container.appendChild(outcomeDiv);
+});
+
+btnP.addEventListener('click', () => {
+    playRound('paper');
+    outcomeDiv.textContent = outcomeText;
+    container.appendChild(outcomeDiv);
+});
+
+btnS.addEventListener('click', () => {
+    playRound('scissors');
+    outcomeDiv.textContent = outcomeText;
+    container.appendChild(outcomeDiv);
+});
+
+let outcomeText = '';
+const container = document.querySelector('.container');
+const outcomeDiv = document.createElement('div');
+outcomeDiv.classList.add('outcomeDiv');
+
+
 
 
 
