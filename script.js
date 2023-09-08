@@ -52,13 +52,17 @@ function winner(string){
     container.removeChild(outcomeDiv);
     const para1 = document.createElement('p');
     const para2 = document.createElement('p');
+    const para3 = document.createElement('p');
     if(string == "player")
-        para1.textContent = "You Won !!";
+        para1.textContent = "You Won!!";
     else if(string == "computer")
-        para1.textContent = "You Lost !!";
-    para2.textContent = `Player = ${playerScore} | Computer = ${computerScore}`
+        para1.textContent = "You Lost!!";
+    para2.textContent = `Player = ${playerScore}`
+    para3.textContent = `Computer = ${computerScore}`
+    para2.classList.add('marginAbove');
     resultDiv.appendChild(para1);
     resultDiv.appendChild(para2);
+    resultDiv.appendChild(para3);
     container.appendChild(resultDiv);
 }
 
