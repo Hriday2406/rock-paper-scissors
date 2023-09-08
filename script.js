@@ -3,11 +3,11 @@ function getComputerChoice() {
     return choice[ Math.floor(Math.random() * 3) ];
 }
 
-function getPlayerChoice() {
-    let choice = prompt("What do you choose? \nRock or Paper or Scissors");
-    choice = choice.toLowerCase();
-    return choice;
-}
+// function getPlayerChoice() {
+//     let choice = prompt("What do you choose? \nRock or Paper or Scissors");
+//     choice = choice.toLowerCase();
+//     return choice;
+// }
 
 function outcomeText(outcome, choice1="", choice2=""){
     if(outcome == "Tie")
@@ -38,20 +38,18 @@ function showResult(outcome, playerScore, computerScore) {
     // outcome can be Tie / Player / Computer
     if(outcome == "Tie"){
         console.log(`It's a Tie !!! \nScore => Player = ${playerScore} | Computer = ${computerScore}`);
-        alert( `It's a Tie !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
+        // alert( `It's a Tie !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
     }
     else {
         console.log(`${outcome} Wins !!! \nScore => Player = ${playerScore} | Computer = ${computerScore}`);
-        alert( `${outcome} Wins !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
+        // alert( `${outcome} Wins !!! \n\nScore => \nPlayer = ${playerScore} | Computer = ${computerScore}` );
     }
 }
 
-function playRound(){
-    let playerChoice = getPlayerChoice(), computerChoice = getComputerChoice();
-
+function playRound(playerChoice, computerChoice = getComputerChoice()){
     let outcome = calcOutcome(playerChoice, computerChoice)
     console.log( outcome );
-    alert( outcome );
+    // alert( outcome );
 
     if(outcome[4] == "W")
         return "player";
@@ -62,13 +60,13 @@ function playRound(){
 
 function game(){
     let playerScore = 0, computerScore = 0;
-    for(let i=0; i<5; i++){
+    // for(let i=0; i<5; i++){
         let result = playRound();
         if(result == "player")
             playerScore++;
         else if(result == "computer")
             computerScore++;
-    }
+    // }
     console.log("/------------------------------/");
     if(playerScore > computerScore)
         showResult("Player", playerScore, computerScore);
@@ -78,7 +76,17 @@ function game(){
         showResult("Tie", playerScore, computerScore);
 }
 
-game();
+const btnR = document.querySelector('#btnR');
+const btnP = document.querySelector('#btnP');
+const btnS = document.querySelector('#btnS');
+
+btnR.addEventListener('click', () => playRound('rock'));
+btnP.addEventListener('click', () => playRound('paper'));
+btnS.addEventListener('click', () => playRound('scissors'));
+
+
+
+// game();
 
 /*
 R > S

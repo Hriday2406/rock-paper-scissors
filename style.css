@@ -1,0 +1,62 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    background-color: black; /*For Dark Mode :) */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    box-shadow: 0px 0px 30px white;
+}
+
+header div {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    text-shadow: 0px 0px 20px white;
+}
+
+footer {
+    box-shadow: 0px 0px 15px white;
+}
+
+footer div {
+    padding: 1rem;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    text-shadow: 0px 0px 15px white;
+}
+
+.container {
+    margin-top: 4rem;
+    flex: 1;
+    text-align: center;
+}
+
+.btn {
+    margin: 1rem;
+    width: 10rem;
+    padding: 2em;
+    border-radius: 20px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    text-shadow: 0px 0px 20px white;
+    box-shadow: inset 0px 0px 10px white;
+    transition: all 0.07s ease-out;
+}
+
+.btn:active {
+    box-shadow: 0px 0px 15px gold;
+    border: 1px solid gold;
+    transform: scale(1.1);
+}
